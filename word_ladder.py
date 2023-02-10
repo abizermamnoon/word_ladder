@@ -62,6 +62,8 @@ def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
     Whenever it is impossible to generate a word ladder between the two words,
     the function returns `None`.
     '''
+    if len(end_word) != len(start_word):
+        return None
     dictionary_file = get_text("words5.dict")
     dictionary = dictionary_file.split("\n")
     stack = []
@@ -71,8 +73,6 @@ def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
     ys.append(stack)
     if start_word == end_word:
         return ys
-    if len(end_word) > len(start_word):
-        return None
     while len(ys) != 0:
         ref = ys.popleft()
         lci = copy.copy(dictionary)
