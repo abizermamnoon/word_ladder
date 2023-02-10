@@ -3,6 +3,7 @@
 from collections import deque
 import copy
 
+
 def _adjacent(word1, word2):
     '''
     Returns True if the input words differ by only a single character;
@@ -25,11 +26,12 @@ def _adjacent(word1, word2):
         return True
 
 
-def get_text(filename): #used to get access to dictionary of 5 letter words
-    f = open(filename, encoding = 'latin1')
+def get_text(filename):  # used to get access to dictionary of 5 letter words
+    f = open(filename, encoding='latin1')
     text = f.read()
     f.close()
     return text
+
 
 def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
     '''
@@ -46,12 +48,14 @@ def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
     ```
     may give the output
     ```
-    ['stone', 'shone', 'phone', 'phony', 'peony', 'penny', 'benny', 'bonny', 'boney', 'money']
+    ['stone', 'shone', 'phone', 'phony', 'peony',
+    'penny', 'benny', 'bonny', 'boney', 'money']
     ```
     but the possible outputs are not unique,
     so you may also get the output
     ```
-    ['stone', 'shone', 'shote', 'shots', 'soots', 'hoots', 'hooty', 'hooey', 'honey', 'money']
+    ['stone', 'shone', 'shote', 'shots', 'soots',
+    'hoots', 'hooty', 'hooey', 'honey', 'money']
     ```
     (We cannot use doctests here because the outputs are not unique.)
 
@@ -69,7 +73,7 @@ def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
         return ys
     if len(end_word) > len(start_word):
         return None
-    while len(ys) != 0: 
+    while len(ys) != 0:
         ref = ys.popleft()
         lci = copy.copy(dictionary)
         for word in lci:
@@ -82,7 +86,6 @@ def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
                 ys.append(lc)
                 dictionary.remove(word)
     return None
-print("word_ladder('stone','money')=", word_ladder('stone','money'))
 
 
 def verify_word_ladder(ladder):
@@ -100,5 +103,5 @@ def verify_word_ladder(ladder):
     for i in range(len(ladder)):
         if i == len(ladder) - 1:
             return True
-        elif _adjacent(ladder[i], ladder[i + 1]) == False:
+        if not _adjacent(ladder[i], ladder[i + 1]):
             return False
